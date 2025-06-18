@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atrapa Frutas - Edición Premium</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🍎 Atrapa Frutas - Edición Premium 🍎</h1>
+        <div class="game-container">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+        </div>
+        <div class="instructions">
+            <p><strong>🎯 Objetivo:</strong> Conseguir 200 puntos atrapando frutas</p>
+            <p><strong>🎮 Controles:</strong> ← → o A D para mover la cesta | R para reiniciar | ESC para salir</p>
+            <p><strong>💡 Tip:</strong> ¡Las frutas doradas son las más valiosas pero también las más raras!</p>
+        </div>
+    </div>
+
+    <script src="game/BasketMovement.js"></script>
+    <script src="game/FruitGenerator.js"></script>
+    <script src="game/CollisionDetector.js"></script>
+    <script src="game/UserInterface.js"></script>
+    <script src="game/Game.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
