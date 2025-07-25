@@ -20,16 +20,23 @@ class DetectorColisiones {
             
             // Verificar colisión con la cesta
             if (this.colisionan(rectCesta, rectFruta)) {
-                const puntosGanados = fruta.obtenerPuntos();
-                this.puntos += puntosGanados;
-                this.ultimoPuntoGanado = puntosGanados;
-                this.mensajePunto = `+${puntosGanados} (${fruta.obtenerNombre()})`;
+                if (fruta.tipo === 'bomba') {
+                    this.vidas -= 1;
+                    this.mensajePunto = '-1 vida (Bomba)';
+                } else {
+                    const puntosGanados = fruta.obtenerPuntos();
+                    this.puntos += puntosGanados;
+                    this.ultimoPuntoGanado = puntosGanados;
+                    this.mensajePunto = `+${puntosGanados} (${fruta.obtenerNombre()})`;
+                }
                 this.tiempoMensaje = Date.now();
                 frutasAEliminar.push(i);
             }
             // Verificar si la fruta tocó el suelo
             else if (fruta.estaEnSuelo()) {
-                this.vidas -= 1;
+                if (fruta.tipo !== 'bomba') {
+                    this.vidas -= 1;
+                }
                 frutasAEliminar.push(i);
             }
         });

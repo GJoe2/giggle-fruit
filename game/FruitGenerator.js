@@ -10,7 +10,8 @@ const TIPOS_FRUTAS = {
     'azul': { color: 'rgb(30, 144, 255)', puntos: 15, nombre: 'Azul' },
     'rojo': { color: 'rgb(220, 20, 60)', puntos: 20, nombre: 'Rojo' },
     'naranja': { color: 'rgb(255, 140, 0)', puntos: 25, nombre: 'Naranja' },
-    'oro': { color: 'rgb(255, 215, 0)', puntos: 30, nombre: 'Oro' }
+    'oro': { color: 'rgb(255, 215, 0)', puntos: 30, nombre: 'Oro' },
+    'bomba': { color: 'rgb(0, 0, 0)', puntos: 0, nombre: 'Bomba', bomba: true }
 };
 
 class GeneradorFrutas {
@@ -82,12 +83,13 @@ class ControladorFrutas {
         this.tiempoUltimaFruta = 0;
         this.intervaloFruta = 1500; // milisegundos
         this.probabilidades = {
-            'gris': 30,    // 30% probabilidad
-            'verde': 25,   // 25% probabilidad
-            'azul': 20,    // 20% probabilidad
-            'rojo': 15,    // 15% probabilidad
+            'gris': 28,    // 28% probabilidad
+            'verde': 23,   // 23% probabilidad
+            'azul': 18,    // 18% probabilidad
+            'rojo': 14,    // 14% probabilidad
             'naranja': 8,  // 8% probabilidad
-            'oro': 2       // 2% probabilidad (más rara)
+            'oro': 2,      // 2% probabilidad (más rara)
+            'bomba': 7     // 7% probabilidad
         };
     }
 
