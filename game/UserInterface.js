@@ -55,7 +55,8 @@ class InterfazUsuario {
             // Dibujar texto
             ctx.fillStyle = 'black';
             ctx.font = '14px Arial';
-            ctx.fillText(`${info.nombre}: ${info.puntos} pts`, xInicio + 25, yOffset + 5);
+            const texto = info.bomba ? `${info.nombre}: -1 vida` : `${info.nombre}: ${info.puntos} pts`;
+            ctx.fillText(texto, xInicio + 25, yOffset + 5);
             yOffset += 18;
         });
     }
