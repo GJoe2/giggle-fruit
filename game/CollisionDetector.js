@@ -9,17 +9,20 @@ class DetectorColisiones {
         this.ultimoPuntoGanado = 0;
         this.mensajePunto = "";
         this.tiempoMensaje = 0;
+        this.frutaCapturada = false;
     }
 
     verificarColisiones(cesta, controladorFrutas) {
         const frutasAEliminar = [];
         const rectCesta = cesta.obtenerRectangulo();
-        
+        this.frutaCapturada = false;
+
         controladorFrutas.obtenerFrutas().forEach((fruta, i) => {
             const rectFruta = fruta.obtenerRectangulo();
             
             // Verificar colisión con la cesta
             if (this.colisionan(rectCesta, rectFruta)) {
+                this.frutaCapturada = true;
                 if (fruta.tipo === 'bomba') {
                     this.vidas -= 1;
                     this.mensajePunto = '-1 vida (Bomba)';
@@ -77,6 +80,7 @@ class DetectorColisiones {
         this.ultimoPuntoGanado = 0;
         this.mensajePunto = "";
         this.tiempoMensaje = 0;
+        this.frutaCapturada = false;
     }
 
     obtenerMensajePunto() {
@@ -85,5 +89,11 @@ class DetectorColisiones {
             return this.mensajePunto;
         }
         return "";
+    }
+
+    consumirFrutaCapturada() {
+        const capturada = this.frutaCapturada;
+        this.frutaCapturada = false;
+        return capturada;
     }
 }

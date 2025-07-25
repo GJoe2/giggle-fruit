@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Reproduce música de menú (puede reemplazarse por otro tema libre) -->
+    <audio id="menuMusic" loop>
+        <source src="https://files.freemusicarchive.org/storage-freemusicarchive/music/no_curator/BoxCat_Games/Ultimate_Ninja_Beats/BoxCat_Games_-_03_-_Run.mp3" type="audio/mpeg">
+    </audio>
     <div id="startMenu" class="menu-overlay hidden">
         <h2>Atrapa Frutas</h2>
         <label>Nombre del jugador:
@@ -52,6 +56,7 @@
     <script src="game/FruitGenerator.js"></script>
     <script src="game/CollisionDetector.js"></script>
     <script src="game/UserInterface.js"></script>
+    <script src="game/SoundManager.js"></script>
     <script src="game/Game.js"></script>
     <script src="script.js"></script>
 </body>

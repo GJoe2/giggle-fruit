@@ -74,6 +74,11 @@ class JuegoAtrapaFrutas {
             // Detectar colisiones (Integrante 3)
             this.detectorColisiones.verificarColisiones(
                 this.cesta, this.controladorFrutas);
+            if (this.detectorColisiones.consumirFrutaCapturada()) {
+                if (window.soundManager) {
+                    window.soundManager.playCatch();
+                }
+            }
             const nivelPorPuntos = Math.floor(this.detectorColisiones.obtenerPuntos() / 20) + 1;
             const nuevoNivel = Math.min(10, Math.max(this.nivelInicial, nivelPorPuntos));
             if (nuevoNivel !== this.nivel) {
