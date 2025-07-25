@@ -16,6 +16,7 @@ class JuegoAtrapaFrutas {
         
         this.estado = "jugando";
         this.ultimoTiempo = 0;
+        this.finalMostrado = false;
         
         this.configurarEventos();
     }
@@ -50,6 +51,10 @@ class JuegoAtrapaFrutas {
         this.controladorFrutas = new ControladorFrutas();
         this.detectorColisiones.reiniciar();
         this.estado = "jugando";
+        this.finalMostrado = false;
+        if (window.mostrarMenu) {
+            window.mostrarMenu();
+        }
     }
 
     actualizar() {
@@ -65,6 +70,13 @@ class JuegoAtrapaFrutas {
             this.detectorColisiones.verificarColisiones(
                 this.cesta, this.controladorFrutas);
             this.estado = this.detectorColisiones.verificarCondicionesJuego();
+            if (this.estado !== "jugando" && !this.finalMostrado) {
+                this.finalMostrado = true;
+                if (window.mostrarFinJuego) {
+                    window.mostrarFinJuego(this.estado,
+                        this.detectorColisiones.obtenerPuntos());
+                }
+            }
         }
     }
 
@@ -95,6 +107,7 @@ class JuegoAtrapaFrutas {
     }
 
     iniciar() {
+        this.finalMostrado = false;
         console.log("🍎 ¡Bienvenido a Atrapa Frutas - Edición Premium! 🍎");
         console.log("\n🎯 Sistema de Puntuación por Colores:");
         Object.entries(TIPOS_FRUTAS).forEach(([tipo, info]) => {
