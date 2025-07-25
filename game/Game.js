@@ -3,7 +3,7 @@
  * Clase principal que coordina todos los componentes del juego
  */
 class JuegoAtrapaFrutas {
-    constructor() {
+    constructor(nivelInicial = 1) {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.teclasPresionadas = {};
@@ -17,7 +17,9 @@ class JuegoAtrapaFrutas {
         this.estado = "jugando";
         this.ultimoTiempo = 0;
         this.finalMostrado = false;
-        this.nivel = 1;
+        this.nivel = nivelInicial;
+        this.nivelInicial = nivelInicial;
+        this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
         
         this.configurarEventos();
     }
@@ -53,7 +55,8 @@ class JuegoAtrapaFrutas {
         this.detectorColisiones.reiniciar();
         this.estado = "jugando";
         this.finalMostrado = false;
-        this.nivel = 1;
+        this.nivel = this.nivelInicial;
+        this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
         if (window.mostrarMenu) {
             window.mostrarMenu();
         }
@@ -71,7 +74,8 @@ class JuegoAtrapaFrutas {
             // Detectar colisiones (Integrante 3)
             this.detectorColisiones.verificarColisiones(
                 this.cesta, this.controladorFrutas);
-            const nuevoNivel = Math.min(10, Math.floor(this.detectorColisiones.obtenerPuntos() / 20) + 1);
+            const nivelPorPuntos = Math.floor(this.detectorColisiones.obtenerPuntos() / 20) + 1;
+            const nuevoNivel = Math.min(10, Math.max(this.nivelInicial, nivelPorPuntos));
             if (nuevoNivel !== this.nivel) {
                 this.nivel = nuevoNivel;
                 this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
@@ -121,6 +125,7 @@ class JuegoAtrapaFrutas {
             console.log(`   ${info.nombre}: ${info.puntos} puntos`);
         });
         console.log("\n🏆 Objetivo: Conseguir 200 puntos");
+        console.log(`🚀 Nivel inicial: ${this.nivelInicial}`);
         console.log("💖 Vidas: 5");
         console.log("\n🎮 Controles:");
         console.log("   ← → o A D: Mover cesta");
