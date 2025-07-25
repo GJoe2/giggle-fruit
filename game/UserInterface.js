@@ -7,27 +7,28 @@ class InterfazUsuario {
         // No necesitamos inicializar fuentes en Canvas, se configuran al dibujar
     }
 
-    dibujarHUD(ctx, detectorColisiones) {
+    dibujarHUD(ctx, detectorColisiones, nivel) {
         // Configurar fuente
         ctx.fillStyle = 'black';
         ctx.font = '24px Arial';
-        
-        // Puntos
-        ctx.fillText(`Puntos: ${detectorColisiones.obtenerPuntos()}`, 10, 35);
-        
-        // Vidas
-        ctx.fillText(`Vidas: ${detectorColisiones.obtenerVidas()}`, 10, 65);
-        
+
+        // Puntos y vidas
+        ctx.fillText(`🍓 Puntos: ${detectorColisiones.obtenerPuntos()}`, 10, 35);
+        ctx.fillText(`🍊 Vidas: ${detectorColisiones.obtenerVidas()}`, 10, 65);
+
+        // Nivel actual
+        ctx.fillText(`Nivel: ${nivel}`, 10, 95);
+
         // Objetivo
         ctx.font = '18px Arial';
-        ctx.fillText('Objetivo: 200 puntos', 10, 90);
+        ctx.fillText('Objetivo: 200 puntos', 10, 120);
         
         // Mensaje de puntos ganados
         const mensaje = detectorColisiones.obtenerMensajePunto();
         if (mensaje) {
             ctx.fillStyle = 'rgb(0, 150, 0)';
             ctx.font = '24px Arial';
-            ctx.fillText(mensaje, 800 / 2 - 100, 120); // ANCHO_PANTALLA
+            ctx.fillText(mensaje, 800 / 2 - 100, 150); // ANCHO_PANTALLA
         }
     }
 
