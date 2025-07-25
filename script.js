@@ -1,5 +1,23 @@
 let juego = null;
 let nombreJugador = '';
+let nivelSeleccionado = Math.min(
+    10,
+    parseInt(localStorage.getItem('maxNivelDesbloqueado') || '1', 10)
+);
+
+function actualizarSelectorNiveles() {
+    const select = document.getElementById('levelSelect');
+    if (!select) return;
+    select.innerHTML = '';
+    const maxNivel = parseInt(localStorage.getItem('maxNivelDesbloqueado') || '1', 10);
+    for (let i = 1; i <= maxNivel; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = `Nivel ${i}`;
+        select.appendChild(option);
+    }
+    select.value = nivelSeleccionado;
+}
 
 function mostrarMenu(id) {
     document.getElementById('startMenu').classList.add('hidden');
@@ -8,6 +26,9 @@ function mostrarMenu(id) {
 
     if (id) {
         document.getElementById(id).classList.remove('hidden');
+        if (id === 'startMenu') {
+            actualizarSelectorNiveles();
+        }
     }
 }
 
@@ -27,6 +48,13 @@ function mostrarFinJuego(estado, puntos) {
     const mensaje = document.getElementById('endMessage');
     if (estado === 'victoria') {
         mensaje.textContent = `\u00a1Victoria! Puntos: ${puntos}`;
+        const maxNivel = parseInt(localStorage.getItem('maxNivelDesbloqueado') || '1', 10);
+        if (nivelSeleccionado >= maxNivel && maxNivel < 10) {
+            const siguiente = nivelSeleccionado + 1;
+            localStorage.setItem('maxNivelDesbloqueado', siguiente);
+            nivelSeleccionado = siguiente;
+            actualizarSelectorNiveles();
+        }
     } else {
         mensaje.textContent = `Game Over - Puntos: ${puntos}`;
     }
@@ -43,12 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.tabIndex = 1000;
     canvas.addEventListener('click', () => canvas.focus());
 
+    const select = document.getElementById('levelSelect');
+    actualizarSelectorNiveles();
+
     document.getElementById('startButton').addEventListener('click', () => {
         nombreJugador = document.getElementById('playerName').value || 'Jugador';
+        nivelSeleccionado = parseInt(select.value, 10);
         document.querySelector('.container').classList.remove('hidden');
         mostrarMenu();
         canvas.focus();
-        juego = new JuegoAtrapaFrutas();
+        juego = new JuegoAtrapaFrutas(nivelSeleccionado);
         juego.iniciar();
     });
 
