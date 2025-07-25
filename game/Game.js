@@ -3,7 +3,7 @@
  * Clase principal que coordina todos los componentes del juego
  */
 class JuegoAtrapaFrutas {
-    constructor() {
+    constructor(nivelInicial = 1) {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.teclasPresionadas = {};
@@ -13,10 +13,13 @@ class JuegoAtrapaFrutas {
         this.controladorFrutas = new ControladorFrutas();  // Integrante 2
         this.detectorColisiones = new DetectorColisiones();  // Integrante 3
         this.interfaz = new InterfazUsuario();  // Integrante 4
-        
+
         this.estado = "jugando";
         this.ultimoTiempo = 0;
         this.finalMostrado = false;
+        this.nivel = nivelInicial;
+        this.nivelInicial = nivelInicial;
+        this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
         
         this.configurarEventos();
     }
@@ -52,6 +55,8 @@ class JuegoAtrapaFrutas {
         this.detectorColisiones.reiniciar();
         this.estado = "jugando";
         this.finalMostrado = false;
+        this.nivel = this.nivelInicial;
+        this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
         if (window.mostrarMenu) {
             window.mostrarMenu();
         }
@@ -65,10 +70,16 @@ class JuegoAtrapaFrutas {
             // Generar y actualizar frutas (Integrante 2)
             this.controladorFrutas.generarFruta();
             this.controladorFrutas.actualizarFrutas();
-            
+
             // Detectar colisiones (Integrante 3)
             this.detectorColisiones.verificarColisiones(
                 this.cesta, this.controladorFrutas);
+            const nivelPorPuntos = Math.floor(this.detectorColisiones.obtenerPuntos() / 20) + 1;
+            const nuevoNivel = Math.min(10, Math.max(this.nivelInicial, nivelPorPuntos));
+            if (nuevoNivel !== this.nivel) {
+                this.nivel = nuevoNivel;
+                this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
+            }
             this.estado = this.detectorColisiones.verificarCondicionesJuego();
             if (this.estado !== "jugando" && !this.finalMostrado) {
                 this.finalMostrado = true;
@@ -89,7 +100,7 @@ class JuegoAtrapaFrutas {
             this.controladorFrutas.dibujarTodas(this.ctx);
         }
         
-        this.interfaz.dibujarHUD(this.ctx, this.detectorColisiones);
+        this.interfaz.dibujarHUD(this.ctx, this.detectorColisiones, this.nivel);
         this.interfaz.dibujarTablaValores(this.ctx);
         this.interfaz.dibujarControles(this.ctx);
         
@@ -114,6 +125,7 @@ class JuegoAtrapaFrutas {
             console.log(`   ${info.nombre}: ${info.puntos} puntos`);
         });
         console.log("\n🏆 Objetivo: Conseguir 200 puntos");
+        console.log(`🚀 Nivel inicial: ${this.nivelInicial}`);
         console.log("💖 Vidas: 5");
         console.log("\n🎮 Controles:");
         console.log("   ← → o A D: Mover cesta");

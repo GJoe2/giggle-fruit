@@ -7,27 +7,28 @@ class InterfazUsuario {
         // No necesitamos inicializar fuentes en Canvas, se configuran al dibujar
     }
 
-    dibujarHUD(ctx, detectorColisiones) {
+    dibujarHUD(ctx, detectorColisiones, nivel) {
         // Configurar fuente
         ctx.fillStyle = 'black';
         ctx.font = '24px Arial';
-        
-        // Puntos
-        ctx.fillText(`Puntos: ${detectorColisiones.obtenerPuntos()}`, 10, 35);
-        
-        // Vidas
-        ctx.fillText(`Vidas: ${detectorColisiones.obtenerVidas()}`, 10, 65);
-        
+
+        // Puntos y vidas
+        ctx.fillText(`🍓 Puntos: ${detectorColisiones.obtenerPuntos()}`, 10, 35);
+        ctx.fillText(`🍊 Vidas: ${detectorColisiones.obtenerVidas()}`, 10, 65);
+
+        // Nivel actual
+        ctx.fillText(`Nivel: ${nivel}`, 10, 95);
+
         // Objetivo
         ctx.font = '18px Arial';
-        ctx.fillText('Objetivo: 200 puntos', 10, 90);
+        ctx.fillText('Objetivo: 200 puntos', 10, 120);
         
         // Mensaje de puntos ganados
         const mensaje = detectorColisiones.obtenerMensajePunto();
         if (mensaje) {
             ctx.fillStyle = 'rgb(0, 150, 0)';
             ctx.font = '24px Arial';
-            ctx.fillText(mensaje, 800 / 2 - 100, 120); // ANCHO_PANTALLA
+            ctx.fillText(mensaje, 800 / 2 - 100, 150); // ANCHO_PANTALLA
         }
     }
 
@@ -41,23 +42,14 @@ class InterfazUsuario {
         
         let yOffset = yInicio + 25;
         Object.entries(TIPOS_FRUTAS).forEach(([tipo, info]) => {
-            // Dibujar círculo de color
-            ctx.fillStyle = info.color;
-            ctx.beginPath();
-            ctx.arc(xInicio + 10, yOffset, 8, 0, 2 * Math.PI);
-            ctx.fill();
-            
-            // Borde del círculo
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            
-            // Dibujar texto
+            ctx.font = '20px Arial';
+            ctx.fillText(info.emoji, xInicio, yOffset + 6);
+
             ctx.fillStyle = 'black';
             ctx.font = '14px Arial';
             const texto = info.bomba ? `${info.nombre}: -1 vida` : `${info.nombre}: ${info.puntos} pts`;
-            ctx.fillText(texto, xInicio + 25, yOffset + 5);
-            yOffset += 18;
+            ctx.fillText(texto, xInicio + 25, yOffset + 10);
+            yOffset += 24;
         });
     }
 
