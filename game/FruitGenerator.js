@@ -5,13 +5,13 @@
 
 // Sistema de frutas por valor (menor a mayor contraste/valor)
 const TIPOS_FRUTAS = {
-    'gris': { color: 'rgb(128, 128, 128)', puntos: 5, nombre: 'Gris' },
-    'verde': { color: 'rgb(34, 139, 34)', puntos: 10, nombre: 'Verde' },
-    'azul': { color: 'rgb(30, 144, 255)', puntos: 15, nombre: 'Azul' },
-    'rojo': { color: 'rgb(220, 20, 60)', puntos: 20, nombre: 'Rojo' },
-    'naranja': { color: 'rgb(255, 140, 0)', puntos: 25, nombre: 'Naranja' },
-    'oro': { color: 'rgb(255, 215, 0)', puntos: 30, nombre: 'Oro' },
-    'bomba': { color: 'rgb(0, 0, 0)', puntos: 0, nombre: 'Bomba', bomba: true }
+    'gris':   { color: 'rgb(128, 128, 128)', puntos: 5,  nombre: 'Gris',   emoji: '🍎' },
+    'verde':  { color: 'rgb(34, 139, 34)',   puntos: 10, nombre: 'Verde',  emoji: '🍏' },
+    'azul':   { color: 'rgb(30, 144, 255)',  puntos: 15, nombre: 'Azul',   emoji: '🫐' },
+    'rojo':   { color: 'rgb(220, 20, 60)',   puntos: 20, nombre: 'Rojo',   emoji: '🍒' },
+    'naranja':{ color: 'rgb(255, 140, 0)',   puntos: 25, nombre: 'Naranja',emoji: '🍊' },
+    'oro':    { color: 'rgb(255, 215, 0)',   puntos: 30, nombre: 'Oro',    emoji: '🍍' },
+    'bomba':  { color: 'rgb(0, 0, 0)',       puntos: 0,  nombre: 'Bomba',  emoji: '💣', bomba: true }
 };
 
 class GeneradorFrutas {
@@ -33,26 +33,14 @@ class GeneradorFrutas {
     }
 
     dibujar(ctx) {
-        const color = TIPOS_FRUTAS[this.tipo].color;
-        
-        // Dibujar círculo de la fruta
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radio, 0, 2 * Math.PI);
-        ctx.fill();
-        
-        // Borde negro
-        ctx.strokeStyle = 'black';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-        
-        // Efecto especial para frutas de oro
-        if (this.tipo === 'oro') {
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(this.x - 5, this.y - 5, 3, 0, 2 * Math.PI);
-            ctx.fill();
-        }
+        const emoji = TIPOS_FRUTAS[this.tipo].emoji;
+
+        ctx.font = '28px serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(emoji, this.x, this.y);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
     }
 
     estaEnSuelo() {

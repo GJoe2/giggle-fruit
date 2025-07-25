@@ -42,23 +42,14 @@ class InterfazUsuario {
         
         let yOffset = yInicio + 25;
         Object.entries(TIPOS_FRUTAS).forEach(([tipo, info]) => {
-            // Dibujar círculo de color
-            ctx.fillStyle = info.color;
-            ctx.beginPath();
-            ctx.arc(xInicio + 10, yOffset, 8, 0, 2 * Math.PI);
-            ctx.fill();
-            
-            // Borde del círculo
-            ctx.strokeStyle = 'black';
-            ctx.lineWidth = 1;
-            ctx.stroke();
-            
-            // Dibujar texto
+            ctx.font = '20px Arial';
+            ctx.fillText(info.emoji, xInicio, yOffset + 6);
+
             ctx.fillStyle = 'black';
             ctx.font = '14px Arial';
             const texto = info.bomba ? `${info.nombre}: -1 vida` : `${info.nombre}: ${info.puntos} pts`;
-            ctx.fillText(texto, xInicio + 25, yOffset + 5);
-            yOffset += 18;
+            ctx.fillText(texto, xInicio + 25, yOffset + 10);
+            yOffset += 24;
         });
     }
 
