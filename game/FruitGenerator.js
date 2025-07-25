@@ -82,6 +82,7 @@ class ControladorFrutas {
         this.frutas = [];
         this.tiempoUltimaFruta = 0;
         this.intervaloFruta = 1500; // milisegundos
+        this.nivel = 1;
         this.probabilidades = {
             'gris': 28,    // 28% probabilidad
             'verde': 23,   // 23% probabilidad
@@ -113,12 +114,12 @@ class ControladorFrutas {
             nuevaFruta.tipo = tipoSeleccionado;
             this.frutas.push(nuevaFruta);
             this.tiempoUltimaFruta = tiempoActual;
-            
-            // Aumentar dificultad gradualmente
-            if (this.intervaloFruta > 800) {
-                this.intervaloFruta -= 3;
-            }
         }
+    }
+
+    ajustarDificultadPorNivel(nivel) {
+        this.nivel = nivel;
+        this.intervaloFruta = Math.max(600, 1500 - (nivel - 1) * 100);
     }
 
     actualizarFrutas() {

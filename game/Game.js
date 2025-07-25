@@ -13,10 +13,11 @@ class JuegoAtrapaFrutas {
         this.controladorFrutas = new ControladorFrutas();  // Integrante 2
         this.detectorColisiones = new DetectorColisiones();  // Integrante 3
         this.interfaz = new InterfazUsuario();  // Integrante 4
-        
+
         this.estado = "jugando";
         this.ultimoTiempo = 0;
         this.finalMostrado = false;
+        this.nivel = 1;
         
         this.configurarEventos();
     }
@@ -52,6 +53,7 @@ class JuegoAtrapaFrutas {
         this.detectorColisiones.reiniciar();
         this.estado = "jugando";
         this.finalMostrado = false;
+        this.nivel = 1;
         if (window.mostrarMenu) {
             window.mostrarMenu();
         }
@@ -65,10 +67,15 @@ class JuegoAtrapaFrutas {
             // Generar y actualizar frutas (Integrante 2)
             this.controladorFrutas.generarFruta();
             this.controladorFrutas.actualizarFrutas();
-            
+
             // Detectar colisiones (Integrante 3)
             this.detectorColisiones.verificarColisiones(
                 this.cesta, this.controladorFrutas);
+            const nuevoNivel = Math.min(10, Math.floor(this.detectorColisiones.obtenerPuntos() / 20) + 1);
+            if (nuevoNivel !== this.nivel) {
+                this.nivel = nuevoNivel;
+                this.controladorFrutas.ajustarDificultadPorNivel(this.nivel);
+            }
             this.estado = this.detectorColisiones.verificarCondicionesJuego();
             if (this.estado !== "jugando" && !this.finalMostrado) {
                 this.finalMostrado = true;
@@ -89,7 +96,7 @@ class JuegoAtrapaFrutas {
             this.controladorFrutas.dibujarTodas(this.ctx);
         }
         
-        this.interfaz.dibujarHUD(this.ctx, this.detectorColisiones);
+        this.interfaz.dibujarHUD(this.ctx, this.detectorColisiones, this.nivel);
         this.interfaz.dibujarTablaValores(this.ctx);
         this.interfaz.dibujarControles(this.ctx);
         
