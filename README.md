@@ -13,6 +13,7 @@ Giggle Fruit is a lightweight minigame built primarily with JavaScript, along wi
 - 🍇 Easy to modify and extend
 - 🍍 Levels unlock automatically up to 10
 
+
 ## Getting Started
 
 1. Clone the repository:
