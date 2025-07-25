@@ -1,6 +1,9 @@
 let juego = null;
 let nombreJugador = '';
-let nivelSeleccionado = 1;
+let nivelSeleccionado = Math.min(
+    10,
+    parseInt(localStorage.getItem('maxNivelDesbloqueado') || '1', 10)
+);
 
 function actualizarSelectorNiveles() {
     const select = document.getElementById('levelSelect');
@@ -13,6 +16,7 @@ function actualizarSelectorNiveles() {
         option.textContent = `Nivel ${i}`;
         select.appendChild(option);
     }
+    select.value = nivelSeleccionado;
 }
 
 function mostrarMenu(id) {
@@ -46,7 +50,10 @@ function mostrarFinJuego(estado, puntos) {
         mensaje.textContent = `\u00a1Victoria! Puntos: ${puntos}`;
         const maxNivel = parseInt(localStorage.getItem('maxNivelDesbloqueado') || '1', 10);
         if (nivelSeleccionado >= maxNivel && maxNivel < 10) {
-            localStorage.setItem('maxNivelDesbloqueado', nivelSeleccionado + 1);
+            const siguiente = nivelSeleccionado + 1;
+            localStorage.setItem('maxNivelDesbloqueado', siguiente);
+            nivelSeleccionado = siguiente;
+            actualizarSelectorNiveles();
         }
     } else {
         mensaje.textContent = `Game Over - Puntos: ${puntos}`;
