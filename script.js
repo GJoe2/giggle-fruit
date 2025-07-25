@@ -26,9 +26,17 @@ function mostrarMenu(id) {
 
     if (id) {
         document.getElementById(id).classList.remove('hidden');
+        if (window.soundManager) {
+            window.soundManager.playMenu();
+            if (id === 'startMenu') {
+                window.soundManager.startMenuMusic();
+            }
+        }
         if (id === 'startMenu') {
             actualizarSelectorNiveles();
         }
+    } else if (window.soundManager) {
+        window.soundManager.stopMenuMusic();
     }
 }
 
@@ -74,7 +82,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const select = document.getElementById('levelSelect');
     actualizarSelectorNiveles();
 
-    document.getElementById('startButton').addEventListener('click', () => {
+    const startBtn = document.getElementById('startButton');
+    const rankingBtn = document.getElementById('rankingButton');
+    const backBtn = document.getElementById('backButton');
+    const restartBtn = document.getElementById('restartButton');
+
+    const hoverSound = () => {
+        if (window.soundManager) {
+            window.soundManager.playHover();
+        }
+    };
+
+    [startBtn, rankingBtn, backBtn, restartBtn].forEach(btn => {
+        if (btn) btn.addEventListener('mouseover', hoverSound);
+    });
+
+    startBtn.addEventListener('click', () => {
         nombreJugador = document.getElementById('playerName').value || 'Jugador';
         nivelSeleccionado = parseInt(select.value, 10);
         document.querySelector('.container').classList.remove('hidden');
@@ -84,16 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
         juego.iniciar();
     });
 
-    document.getElementById('rankingButton').addEventListener('click', () => {
+    rankingBtn.addEventListener('click', () => {
         actualizarRankings();
         mostrarMenu('rankingMenu');
     });
 
-    document.getElementById('backButton').addEventListener('click', () => {
+    backBtn.addEventListener('click', () => {
         mostrarMenu('startMenu');
     });
 
-    document.getElementById('restartButton').addEventListener('click', () => {
+    restartBtn.addEventListener('click', () => {
         mostrarMenu('startMenu');
         document.querySelector('.container').classList.add('hidden');
     });
