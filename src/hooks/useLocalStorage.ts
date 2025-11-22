@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
   // Estado para almacenar nuestro valor
   const [storedValue, setStoredValue] = useState<T>(() => {
     // El valor inicial se determina una sola vez
@@ -29,8 +29,18 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
     }
   }, [key, storedValue]);
 
-  const setValue = (value: T) => {
-    setStoredValue(value);
+  // Versión mejorada de setValue que imita la API de useState
+  const setValue: Dispatch<SetStateAction<T>> = (value) => {
+    try {
+      // Permitir que el valor sea una función para tener el mismo comportamiento que useState
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+      // Guardar estado
+      setStoredValue(valueToStore);
+    } catch (error) {
+      // Un error más avanzado podría manejar este caso
+      console.log(error);
+    }
   };
 
   return [storedValue, setValue];

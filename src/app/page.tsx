@@ -60,11 +60,11 @@ export default function Home() {
 
     // Guardar la nueva puntuación
     const newRanking: RankingEntry = { name: playerName || 'Jugador', score };
-    setRankings(prevRankings => [...prevRankings, newRanking]);
+    setRankings((prevRankings: RankingEntry[]) => [...prevRankings, newRanking]);
 
     // Lógica para desbloquear el siguiente nivel
     if (status === 'victoria') {
-      setMaxLevel(prevMaxLevel => {
+      setMaxLevel((prevMaxLevel: number) => {
         if (currentLevel === prevMaxLevel && prevMaxLevel < MAX_LEVEL_CAP) {
           console.log(`¡Nivel ${prevMaxLevel + 1} desbloqueado!`);
           return prevMaxLevel + 1;
