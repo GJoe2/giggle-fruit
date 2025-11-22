@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 
-function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
+function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
   // Estado para almacenar nuestro valor
   const [storedValue, setStoredValue] = useState<T>(() => {
     // El valor inicial se determina una sola vez
@@ -29,18 +29,8 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetState
     }
   }, [key, storedValue]);
 
-  // Versión mejorada de setValue que imita la API de useState
-  const setValue: Dispatch<SetStateAction<T>> = (value) => {
-    try {
-      // Permitir que el valor sea una función para tener el mismo comportamiento que useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      // Guardar estado
-      setStoredValue(valueToStore);
-    } catch (error) {
-      // Un error más avanzado podría manejar este caso
-      console.log(error);
-    }
+  const setValue = (value: T | ((prev: T) => T)) => {
+    setStoredValue(value);
   };
 
   return [storedValue, setValue];
