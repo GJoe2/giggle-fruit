@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 
-function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
+function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T | ((prev: T) => T)) => void] {
   // Estado para almacenar nuestro valor
   const [storedValue, setStoredValue] = useState<T>(() => {
     // El valor inicial se determina una sola vez
@@ -29,7 +29,7 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
     }
   }, [key, storedValue]);
 
-  const setValue = (value: T) => {
+  const setValue = (value: T | ((prev: T) => T)) => {
     setStoredValue(value);
   };
 
