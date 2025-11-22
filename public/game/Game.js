@@ -2,17 +2,17 @@
  * CLASE PRINCIPAL DEL JUEGO
  * Clase principal que coordina todos los componentes del juego
  */
-class JuegoAtrapaFrutas {
+window.JuegoAtrapaFrutas = class JuegoAtrapaFrutas {
     constructor(nivelInicial = 1) {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.teclasPresionadas = {};
         
         // Inicializar componentes (roles de integrantes)
-        this.cesta = new MovimientoCesta();  // Integrante 1
-        this.controladorFrutas = new ControladorFrutas();  // Integrante 2
-        this.detectorColisiones = new DetectorColisiones();  // Integrante 3
-        this.interfaz = new InterfazUsuario();  // Integrante 4
+        this.cesta = new window.MovimientoCesta();  // Integrante 1
+        this.controladorFrutas = new window.ControladorFrutas();  // Integrante 2
+        this.detectorColisiones = new window.DetectorColisiones();  // Integrante 3
+        this.interfaz = new window.InterfazUsuario();  // Integrante 4
 
         this.estado = "jugando";
         this.ultimoTiempo = 0;
@@ -50,8 +50,8 @@ class JuegoAtrapaFrutas {
     }
 
     reiniciarJuego() {
-        this.cesta = new MovimientoCesta();
-        this.controladorFrutas = new ControladorFrutas();
+        this.cesta = new window.MovimientoCesta();
+        this.controladorFrutas = new window.ControladorFrutas();
         this.detectorColisiones.reiniciar();
         this.estado = "jugando";
         this.finalMostrado = false;
@@ -115,18 +115,18 @@ class JuegoAtrapaFrutas {
         }
     }
 
-    bucleJuego(tiempoActual) {
+    bucleJuego() {
         this.actualizar();
         this.dibujar();
         
-        requestAnimationFrame((tiempo) => this.bucleJuego(tiempo));
+        requestAnimationFrame(() => this.bucleJuego());
     }
 
     iniciar() {
         this.finalMostrado = false;
         console.log("🍎 ¡Bienvenido a Atrapa Frutas - Edición Premium! 🍎");
         console.log("\n🎯 Sistema de Puntuación por Colores:");
-        Object.entries(TIPOS_FRUTAS).forEach(([tipo, info]) => {
+        Object.entries(window.TIPOS_FRUTAS).forEach(([, info]) => {
             console.log(`   ${info.nombre}: ${info.puntos} puntos`);
         });
         console.log("\n🏆 Objetivo: Conseguir 200 puntos");
@@ -139,6 +139,6 @@ class JuegoAtrapaFrutas {
         console.log("\n¡Las frutas doradas son las más valiosas pero también las más raras!");
         console.log("Iniciando juego...");
         
-        requestAnimationFrame((tiempo) => this.bucleJuego(tiempo));
+        requestAnimationFrame(() => this.bucleJuego());
     }
-}
+};

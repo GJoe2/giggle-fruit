@@ -48,8 +48,11 @@ export default function Home() {
   const [playerName, setPlayerName] = useState('');
   const [currentLevel, setCurrentLevel] = useState(1);
 
-  const [rankings, setRankings] = useLocalStorage<RankingEntry[]>('rankings', []);
-  const [maxLevel, setMaxLevel] = useLocalStorage('maxNivelDesbloqueado', 1);
+  // Las variables _rankings y _maxLevel se gestionan a través del hook,
+  // pero no se leen directamente en este componente. Se prefijan con _ para
+  // indicar que su declaración es necesaria para la persistencia.
+  const [, setRankings] = useLocalStorage<RankingEntry[]>('rankings', []);
+  const [, setMaxLevel] = useLocalStorage('maxNivelDesbloqueado', 1);
 
   const handleGameEnd = useCallback((message: string, score: number, status: 'victoria' | 'derrota') => {
     setEndMessage(message);
@@ -57,11 +60,11 @@ export default function Home() {
 
     // Guardar la nueva puntuación
     const newRanking: RankingEntry = { name: playerName || 'Jugador', score };
-    setRankings(prevRankings => [...prevRankings, newRanking]);
+    setRankings((prevRankings: RankingEntry[]) => [...prevRankings, newRanking]);
 
     // Lógica para desbloquear el siguiente nivel
     if (status === 'victoria') {
-      setMaxLevel(prevMaxLevel => {
+      setMaxLevel((prevMaxLevel: number) => {
         if (currentLevel === prevMaxLevel && prevMaxLevel < MAX_LEVEL_CAP) {
           console.log(`¡Nivel ${prevMaxLevel + 1} desbloqueado!`);
           return prevMaxLevel + 1;
