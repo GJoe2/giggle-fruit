@@ -48,8 +48,11 @@ export default function Home() {
   const [playerName, setPlayerName] = useState('');
   const [currentLevel, setCurrentLevel] = useState(1);
 
-  const [rankings, setRankings] = useLocalStorage<RankingEntry[]>('rankings', []);
-  const [maxLevel, setMaxLevel] = useLocalStorage('maxNivelDesbloqueado', 1);
+  // Las variables _rankings y _maxLevel se gestionan a través del hook,
+  // pero no se leen directamente en este componente. Se prefijan con _ para
+  // indicar que su declaración es necesaria para la persistencia.
+  const [, setRankings] = useLocalStorage<RankingEntry[]>('rankings', []);
+  const [, setMaxLevel] = useLocalStorage('maxNivelDesbloqueado', 1);
 
   const handleGameEnd = useCallback((message: string, score: number, status: 'victoria' | 'derrota') => {
     setEndMessage(message);

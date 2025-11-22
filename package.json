@@ -1,12 +1,14 @@
 {
-  "name": "temp-next-app",
+  "name": "giggle-fruit-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev:test": "next dev -p 3001",
+    "test": "start-server-and-test dev:test http://localhost:3001 'npx playwright test'"
   },
   "dependencies": {
     "next": "16.0.3",
@@ -14,12 +16,14 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
+    "start-server-and-test": "^2.1.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -2,7 +2,7 @@
  * INTEGRANTE 3: DETECTAR COLISIONES Y SUMAR PUNTOS O RESTAR VIDAS
  * Clase responsable de detectar colisiones y manejar puntuación/vidas
  */
-class DetectorColisiones {
+window.DetectorColisiones = class DetectorColisiones {
     constructor() {
         this.puntos = 0;
         this.vidas = 5; // VIDAS_INICIALES
@@ -96,4 +96,4 @@ class DetectorColisiones {
         this.frutaCapturada = false;
         return capturada;
     }
-}
+};

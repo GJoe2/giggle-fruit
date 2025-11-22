@@ -4,7 +4,7 @@
  */
 
 // Sistema de frutas por valor (menor a mayor contraste/valor)
-const TIPOS_FRUTAS = {
+window.TIPOS_FRUTAS = {
     'gris':   { color: 'rgb(128, 128, 128)', puntos: 5,  nombre: 'Gris',   emoji: '🍎' },
     'verde':  { color: 'rgb(34, 139, 34)',   puntos: 10, nombre: 'Verde',  emoji: '🍏' },
     'azul':   { color: 'rgb(30, 144, 255)',  puntos: 15, nombre: 'Azul',   emoji: '🫐' },
@@ -61,11 +61,11 @@ class GeneradorFrutas {
     }
 
     obtenerNombre() {
-        return TIPOS_FRUTAS[this.tipo].nombre;
+        return window.TIPOS_FRUTAS[this.tipo].nombre;
     }
 }
 
-class ControladorFrutas {
+window.ControladorFrutas = class ControladorFrutas {
     constructor() {
         this.frutas = [];
         this.tiempoUltimaFruta = 0;
@@ -127,4 +127,4 @@ class ControladorFrutas {
     dibujarTodas(ctx) {
         this.frutas.forEach(fruta => fruta.dibujar(ctx));
     }
-}
+};

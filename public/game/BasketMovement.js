@@ -2,7 +2,7 @@
  * INTEGRANTE 1: PROGRAMAR EL MOVIMIENTO DE LA CESTA
  * Clase responsable del movimiento y control de la cesta
  */
-class MovimientoCesta {
+window.MovimientoCesta = class MovimientoCesta {
     constructor() {
         this.ancho = 80;
         this.alto = 20;
@@ -52,4 +52,4 @@ class MovimientoCesta {
             height: this.alto
         };
     }
-}
+};

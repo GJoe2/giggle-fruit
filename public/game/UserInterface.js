@@ -2,7 +2,7 @@
  * INTEGRANTE 4: CREAR LA INTERFAZ
  * Clase responsable de mostrar la interfaz de usuario
  */
-class InterfazUsuario {
+window.InterfazUsuario = class InterfazUsuario {
     constructor() {
         // No necesitamos inicializar fuentes en Canvas, se configuran al dibujar
     }
@@ -41,7 +41,7 @@ class InterfazUsuario {
         ctx.fillText('Valores de Frutas:', xInicio, yInicio);
         
         let yOffset = yInicio + 25;
-        Object.entries(TIPOS_FRUTAS).forEach(([tipo, info]) => {
+        Object.entries(window.TIPOS_FRUTAS).forEach(([, info]) => {
             ctx.font = '20px Arial';
             ctx.fillText(info.emoji, xInicio, yOffset + 6);
 
@@ -106,4 +106,4 @@ class InterfazUsuario {
         // Resetear alineación de texto
         ctx.textAlign = 'left';
     }
-}
+};
