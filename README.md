@@ -1,21 +1,49 @@
-# Giggle Fruit
+# Atrapa Frutas - Edición Premium (Remake con Next.js)
 
-A simple minigame.
+Un minijuego simple y divertido, modernizado con tecnología web actual.
 
-## Overview
+## Descripción General
 
-Giggle Fruit is a lightweight minigame built primarily with JavaScript, along with some CSS and HTML. 
+"Atrapa Frutas" es un minijuego ligero construido originalmente con JavaScript puro, CSS y HTML. Esta versión ha sido completamente refactorizada para usar un stack moderno:
 
-## Features
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Estilos:** [Tailwind CSS](https://tailwindcss.com/)
+- **Lenguaje:** TypeScript
 
-- 🍎 Fun and simple gameplay
-- 🍌 Runs in your browser
-- 🍇 Easy to modify and extend
-- 🍍 Levels unlock automatically up to 10
+## Características
 
+- 🍎 Jugabilidad simple y adictiva.
+- 🚀 Rendimiento mejorado y estructura escalable gracias a Next.js.
+- 💅 Interfaz de usuario moderna y responsiva con Tailwind CSS.
+- 🍍 Los niveles se desbloquean automáticamente hasta el nivel 10.
+- 🏆 Sistema de ranking guardado localmente en tu navegador.
 
-## Getting Started
+## Cómo Empezar
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/GJoe2/giggle-fruit.git
+### Prerrequisitos
+
+Asegúrate de tener [Node.js](https://nodejs.org/) (versión 18.x o superior) instalado en tu máquina.
+
+### Instalación y Ejecución
+
+1.  **Clona el repositorio:**
+    ```bash
+    git clone <URL_DEL_REPOSITORIO>
+    cd <NOMBRE_DEL_REPOSITORIO>
+    ```
+
+2.  **Instala las dependencias:**
+    ```bash
+    npm install
+    ```
+
+3.  **Ejecuta el servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
+
+4.  Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el juego.
+
+---
+
+*Esta es una versión refactorizada. La lógica del juego original se ha mantenido, pero la interfaz y la estructura del proyecto han sido reconstruidas desde cero.*

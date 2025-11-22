@@ -88,9 +88,9 @@ class JuegoAtrapaFrutas {
             this.estado = this.detectorColisiones.verificarCondicionesJuego();
             if (this.estado !== "jugando" && !this.finalMostrado) {
                 this.finalMostrado = true;
-                if (window.mostrarFinJuego) {
-                    window.mostrarFinJuego(this.estado,
-                        this.detectorColisiones.obtenerPuntos());
+                // Llamar a la nueva API de React para comunicar el fin del juego
+                if (window.gameAPI && typeof window.gameAPI.endGame === 'function') {
+                    window.gameAPI.endGame(this.estado, this.detectorColisiones.obtenerPuntos());
                 }
             }
         }
